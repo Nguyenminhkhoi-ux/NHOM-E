@@ -1,0 +1,49 @@
+﻿@using KDOS.Repository.Models
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h3>@ViewData["Title"]</h3>
+        <a href="@Url.Action("AddOrEdit", "PhanHoi", new { area = "Admin" })" class="btn btn-success btn-sm">Thêm Mới</a>
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mã Phản Hồi</th>
+                        <th>Mã Khách</th>
+                        <th>Mã Đơn Hàng</th>
+                        <th>Nội Dung</th>
+                        <th>Ngày Phản Hồi</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaPhanHoi</td>
+                            <td>@item.MaKhach</td>
+                            <td>@item.MaDonHang</td>
+                            <td>@item.NoiDung</td>
+                            <td>@item.NgayPhanHoi?.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <a href="@Url.Action("AddOrEdit", "PhanHoi", new { id = item.MaPhanHoi, area = "Admin" })" class="btn btn-warning btn-sm">Sửa</a>
+                                <form method="post" asp-action="Delete" asp-route-id="@item.MaPhanHoi" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
